@@ -73,7 +73,7 @@ bool security_global_filter(const struct wl_client *client, const struct wl_glob
 		perm = PRIV_INPUT_VIRTUAL_POINTER;
 	else if (global == server->output_power_manager_v1->global)
 		perm = PRIV_OUTPUT_POWER_MANAGER;
-	else if (global == server->session_lock->global)
+	else if (global == server->session_lock.manager->global)
 		perm = PRIV_SESSION_LOCK;
 	else
 		return true;
