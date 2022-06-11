@@ -4,6 +4,7 @@
 #include <wlr/backend/multi.h>
 #include <wlr/backend/session.h>
 #include <wlr/interfaces/wlr_keyboard.h>
+#include <wlr/types/wlr_data_device.h>
 #include <wlr/types/wlr_idle.h>
 #include <wlr/types/wlr_keyboard.h>
 #include <wlr/types/wlr_keyboard_group.h>
@@ -273,6 +274,13 @@ static bool keyboard_execute_compositor_binding(struct sway_keyboard *keyboard,
 				}
 			}
 			return true;
+		}
+		if (keysyms_len == 1 && modifiers & WLR_MODIFIER_CTRL) {
+			if (keysym == XKB_KEY_V || keysym == XKB_KEY_v) {
+				struct sway_seat *seat = keyboard->seat_device->sway_seat;
+				struct wlr_seat *wlr_seat = seat->wlr_seat;
+				wlr_seat_unlock_data_offers(wlr_seat);
+			}
 		}
 	}
 
